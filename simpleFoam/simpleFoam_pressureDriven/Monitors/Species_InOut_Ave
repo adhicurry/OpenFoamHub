@@ -1,0 +1,13 @@
+set border lw 4
+set title "In/Out Mass Fraction" font "arial,22"
+set ylabel "Yi" font "arial,18"
+set xlabel "Iteration" font "arial,18"
+set key width 1
+plot "< cat /home/linux1/OpenfoamV2206/Nozzle_5843/withWall/log.chtMultiRegionSimpleFoam | grep 'average(inlet) of C3H8' | awk '{print $NF}'" title 'C3H8-inlet' with lines lw 4,\
+     "< cat /home/linux1/OpenfoamV2206/Nozzle_5843/withWall/log.chtMultiRegionSimpleFoam | grep 'average(outlet) of C3H8' | awk '{print $NF}'" title 'C3H8-outlet' with lines lw 4,\
+     "< cat /home/linux1/OpenfoamV2206/Nozzle_5843/withWall/log.chtMultiRegionSimpleFoam | grep 'average(inlet) of O2' | awk '{print $NF}'" title 'O2-inlet' with lines lw 4,\
+     "< cat /home/linux1/OpenfoamV2206/Nozzle_5843/withWall/log.chtMultiRegionSimpleFoam | grep 'average(outlet) of O2' | awk '{print $NF}'" title 'O2-outlet' with lines lw 4,\
+     "< cat /home/linux1/OpenfoamV2206/Nozzle_5843/withWall/log.chtMultiRegionSimpleFoam | grep 'average(outlet) of H2O' | awk '{print $NF}'" title 'H2O-outlet' with lines lw 4,\
+     "< cat /home/linux1/OpenfoamV2206/Nozzle_5843/withWall/log.chtMultiRegionSimpleFoam | grep 'average(outlet) of CO2' | awk '{print $NF}'" title 'CO2-outlet' with lines lw 4
+pause 1
+reread

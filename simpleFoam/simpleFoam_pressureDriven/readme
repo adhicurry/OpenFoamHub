@@ -1,0 +1,25 @@
+simpleFoam
+Laminar Flow
+pressure inlet, Pressure outlet
+  * calculates the flowrate based on the specified pressure at the inlet and outlet*
+
+Basic Requirements
+ - p and U in 0 folder
+ - transport and turbulence properties in constant folder
+ - fvSchemes, fvSolution, controlDict, decomposeParDict in system folder
+
+
+Water with constant properties 
+Pipe length = 2m, Pipe diameter = 0.2m
+
+
+
+Notable Features of this case
+  - Can calculate pressure drop using Hagen Pousielle Law
+  - includes topoSetDict for an example
+  - parallel run (4 cores) 
+
+
+## MESH GENERATED IN FLUENT AND IMPORTED HERE
+  - Mesh has solid region as well, simpleFoam only needs fluid region
+  - Mesh has been manually changed to keep only the fluid region as per this tutorial

@@ -1,0 +1,30 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+#Convert MultiRegion Fluent Mesh
+runApplication dos2unix pipeWithWall.cas
+runApplication fluent3DMeshToFoam pipeWithWall.cas -scale 0.001
+runApplication checkMesh 
+runApplication splitMeshRegions -cellZones -overwrite
+
+#Restore 0 directory from 0.orig
+#restore0dir
+
+#Creat Toposet Region
+#runApplication topoSet -region fluid_0
+
+# Create Parafoam files
+#touch Results.foam
+#paraFoam -region fluid_0 -touch
+#paraFoam -region solid_1 -touch
+#paraFoam -region solid_2 -touch
+
+
+#Make folder to store old logs
+mkdir logs.old
+mv -f log.* logs.old
+
+
+#------------------------------------------------------------------------------
