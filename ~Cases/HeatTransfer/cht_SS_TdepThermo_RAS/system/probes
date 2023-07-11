@@ -1,0 +1,138 @@
+// -*- C++ -*-
+
+probesFluid
+{
+    type            probes;
+    libs            (sampling);
+    writeControl    timeStep;
+    writeInterval   1;
+    interpolationScheme cell;
+    region          fluid_0;
+    log             true;
+    verbose         true;
+
+    fields          (p p_rgh U T);
+
+    probeLocations
+    (
+        (0 0 0)
+		(0 0.001 0.001)
+    );
+}
+
+MassFlowRate_inlet
+{
+    type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+    enabled         yes;
+    writeControl    timeStep;
+    writeInterval   1;
+    log             yes;
+    writeFields     no;
+    regionType      patch;
+    name            inlet;
+    operation       sum;
+    fields          (phi);
+    region          fluid_0;
+}
+
+MassFlowRate_outlet
+{
+    type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+    enabled         yes;
+    writeControl    timeStep;
+    writeInterval   1;
+    log             yes;
+    writeFields     no;
+    regionType      patch;
+    name            outlet;
+    operation       sum;
+    fields          (phi);
+    region          fluid_0;
+}
+
+inletAve_Values
+{
+    // Mandatory entries
+	type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+	enabled			yes;
+	writeControl    timeStep;
+    writeInterval   5;
+	log				yes;
+	writeFields		no;
+	operation		average;
+	regionType		patch;
+	fields			(U T p p_rgh);
+	name			inlet;
+	region			fluid_0;
+
+}
+
+outletAve_Values
+{
+    // Mandatory entries
+	type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+	enabled			yes;
+	writeControl    timeStep;
+    writeInterval   5;
+	log				yes;
+	writeFields		no;
+	operation		average;
+	regionType		patch;
+	fields			(U T p p_rgh);
+	name			outlet;
+	region			fluid_0;
+
+}
+
+MinMaxT
+{
+    type    multiRegion;
+    libs    (utilityFunctionObjects);
+
+    // regions ( ".*region0" );
+
+    function
+    {
+        // Actual object specification
+        type    fieldMinMax;
+        libs    (fieldFunctionObjects);
+        fields  (T);
+    }
+}
+
+volAvgFluidTemp
+{
+	type            volFieldValue;
+	libs            ("libfieldFunctionObjects.so");
+	log             true;
+	//writeControl    timeStep;//writeTime;//timeStep;//writeTime;
+	writeFields     false;
+	regionType      all;//cellZone;
+	region          fluid_0;
+	name            fluid_0;
+	operation       volAverage;
+	weightField     none;//alpha1;
+	fields
+	(
+		T
+	);
+}
+
+
+solverInfo1
+{
+#includeEtc "caseDicts/postProcessing/numerical/solverInfo.cfg"
+
+writeControl writeTime;
+
+fields      (p_rgh h);
+
+writeFields yes;
+log         true;
+}
+
+// ************************************************************************* //
