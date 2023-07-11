@@ -1,0 +1,63 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+
+#./AllrunPre
+rm -rf log.chtMultiRegionSimpleFoam
+rm -rf logs.*
+touch Results.foam
+#------------------------------------------------------------------------------
+
+# Remove fluid fields from solid regions (important for post-processing)
+for region in $( foamListRegions solid)
+do
+    rm -f 0/"$region"/{nut,alphat,epsilon,k,U,p_rgh}
+    rm -f processor*/0/"$region"/{nut,alphat,epsilon,k,U,p_rgh}
+done
+
+#------------------------------------------------------------------------------
+#changeDictionaryDict for initial conditions
+#for region in $(foamListRegions)
+#do
+#    runApplication -s "$region" changeDictionary -region "$region"
+#done
+#------------------------------------------------------------------------------
+
+# Parallel decompose, solve and reconstruct
+
+# settings
+    # flag to enable computations in parallel mode
+    parallel=true
+[ -d constant/polyMesh ] || cp -rf constant/polyMesh.orig constant/polyMesh
+
+if [ "$parallel" = true ]
+then
+
+    runApplication decomposePar -allRegions -latestTime
+    
+    #runApplication potentialFoam
+    
+    runParallel $(getApplication)
+
+    runApplication reconstructPar -allRegions -newTimes
+
+else
+
+    runApplication $(getApplication)
+
+fi
+
+#------------------------------------------------------------------------------
+
+#Cleanup
+#latestTime=$(foamListTimes -latestTime)
+#mv -f "$latestTime" "$latestTime".results
+#mv -f "log.chtMultiRegionSimpleFoam" "FinalLog.chtMultiRegionSimpleFoam"
+
+mkdir logs.old
+#mv -f processor* logs.old
+
+mv -f log.reconstructPar logs.old
+mv -f log.decomposePar logs.old
