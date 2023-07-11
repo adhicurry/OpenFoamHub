@@ -1,4 +1,6 @@
 chtMultiRegionSimpleFoam 
-    -conjugate heat transfer
-    -water flow (laminar) in pipe 
+    -SS conjugate heat transfer
+    -water flow (laminar) in pipe
+        -Velocity inlet, pressure outlet
     -Constant thermophysical properties
+    
