@@ -1,0 +1,28 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+#Convert MultiRegion Fluent Mesh
+dos2unix /home/linux1/OpenfoamV2206/ARPAE_testing/Chen_Comparison/Try4_7_12/Step3_Comb_P1/constant/Chen_50k.msh
+runApplication fluentMeshToFoam -writeZones /home/linux1/OpenfoamV2206/ARPAE_testing/Chen_Comparison/Try4_7_12/Step3_Comb_P1/constant/Chen_50k.msh
+runApplication splitMeshRegions -cellZones -overwrite
+runApplication checkMesh -allGeometry
+
+# Create ignition source cells
+runApplication topoSet -region fluid_0
+
+# Create Parafoam files
+touch Results.foam
+#paraFoam -region fluid_0 -touch
+#paraFoam -region solid_1 -touch
+#paraFoam -region solid_2 -touch
+
+#runApplication potentialFoam
+
+restore0Dir
+mkdir logs.old
+mv -f log.* logs.old
+
+
+#------------------------------------------------------------------------------

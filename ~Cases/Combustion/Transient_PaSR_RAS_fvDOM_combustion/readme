@@ -1,0 +1,13 @@
+cht + Transient + RAS + radiation
+1step arhenius reaction
+3D Heat Loss Expression
+kOmegaSST
+fvDOM (greyGasMeanAdsorptionEmission) + opaque solid radiation
+
+
+
+fvDOM tutorial
+tutorial 
+ - compartment fire
+ - opposite burning panels
+ 

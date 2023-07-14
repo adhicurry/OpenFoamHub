@@ -1,0 +1,59 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      fvOptions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+options
+{
+
+    HeatLoss3D
+    {
+        type            scalarSemiImplicitSource;
+        selectionMode   all;
+        volumeMode      specific;   //Or specific ?
+        active          yes;
+        
+        sources
+        {
+            h
+            {
+                explicit
+                {
+                    type        exprField;
+                    expression  "(7.738E-5 * pow(T, 3.0) + -0.28776 * pow(T, 2.0) + -78.706 * T + 47759)"; //kg*m^2/s^3 (Watts) #VERIFY UNITS FOR SPECIFIC OR ABSOLUTE
+                }
+            }
+        }
+    }
+
+    limitT
+    {
+        type            limitTemperature;
+        active          yes;
+
+        selectionMode   all;
+        min             290;
+        max             2500;
+    }
+
+}
+
+
+
+
+
+
+
+// ************************************************************************* //
