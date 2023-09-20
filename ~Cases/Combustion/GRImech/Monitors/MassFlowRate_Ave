@@ -1,0 +1,9 @@
+set border lw 4
+set title "Mass Flow Rate [kg/s]" font "arial,22"
+set ylabel "Mass Flow Rate [kg/s]" font "arial,18"
+set xlabel "Iteration" font "arial,18"
+set key width 1
+plot "< cat /home/daksh-adhikari/Desktop/ARPAE/Chen/GRI_Chen/log.chtMultiRegionFoam | grep 'sum(inlet) of phi' | awk '{print $NF}'" title 'inlet' with lines lw 2,\
+     "< cat /home/daksh-adhikari/Desktop/ARPAE/Chen/GRI_Chen/log.chtMultiRegionFoam | grep 'sum(outlet) of phi' | awk '{print $NF}'" title 'outlet' with lines lw 2
+pause 1
+reread

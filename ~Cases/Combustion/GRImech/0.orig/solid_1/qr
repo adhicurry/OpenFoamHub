@@ -1,0 +1,52 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2206                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      qr;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [1 0 -3 0 0 0 0];
+
+internalField   uniform 0;
+
+boundaryField
+{
+    "proc.*"
+    {
+        type            processor;
+    }
+    wall_1
+    {
+        type            zeroGradient;
+    }
+
+    frontAndBackPlanes
+    {
+        type            empty;
+    }
+
+    solid_1_to_fluid_0
+    {
+        type            mappedField;
+        sampleRegion    fluid_0;
+        sampleMode      nearestPatchFace;
+        samplePatch     fluid_0_to_solid_1;
+        offset          (0 0 0);
+        field           qr;
+        setAverage      no;
+        average         0;
+        value           uniform 0;
+    }
+}
+
+
+// ************************************************************************* //
