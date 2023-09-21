@@ -1,0 +1,15 @@
+set border lw 4
+set logscale y
+set title "Residuals" font "arial,22"
+set ylabel "Residual" font "arial,18"
+set xlabel "Iteration" font "arial,18"
+set key width 1
+plot "< cat /home/daksh-act/Desktop/OpenFOAM2206/SwissRoll_OF2206/SRC_4in_5a5mm/Propane1Step/Step1_SS_FlowField/log.chtMultiRegionSimpleFoam | grep 'Solving for Ux' | cut -d' ' -f9 | tr -d ','" title 'Ux' with lines lw 4,\
+	 "< cat /home/daksh-act/Desktop/OpenFOAM2206/SwissRoll_OF2206/SRC_4in_5a5mm/Propane1Step/Step1_SS_FlowField/log.chtMultiRegionSimpleFoam | grep 'Solving for Uy' | cut -d' ' -f9 | tr -d ','" title 'Uy' with lines lw 4,\
+	 "< cat /home/daksh-act/Desktop/OpenFOAM2206/SwissRoll_OF2206/SRC_4in_5a5mm/Propane1Step/Step1_SS_FlowField/log.chtMultiRegionSimpleFoam | grep 'Solving for k' | cut -d' ' -f9 | tr -d ','" title 'k' with lines lw 4,\
+	 "< cat /home/daksh-act/Desktop/OpenFOAM2206/SwissRoll_OF2206/SRC_4in_5a5mm/Propane1Step/Step1_SS_FlowField/log.chtMultiRegionSimpleFoam | grep 'Solving for omega' | cut -d' ' -f9 | tr -d ','" title 'omega' with lines lw 4,\
+	 #"< cat /home/daksh-act/Desktop/OpenFOAM2206/SwissRoll_OF2206/SRC_4in_5a5mm/Propane1Step/Step1_SS_FlowField/log.chtMultiRegionSimpleFoam | grep 'Solving for Rzz' | cut -d' ' -f9 | tr -d ','" title 'Rzz' with lines lw 4,\
+	 #"< cat /home/daksh-act/Desktop/OpenFOAM2206/SwissRoll_OF2206/SRC_4in_5a5mm/Propane1Step/Step1_SS_FlowField/log.chtMultiRegionSimpleFoam | grep 'Solving for Rxy' | cut -d' ' -f9 | tr -d ','" title 'Rxy' with lines lw 4,
+pause 1
+reread
+

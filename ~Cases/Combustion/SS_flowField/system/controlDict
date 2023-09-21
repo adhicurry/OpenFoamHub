@@ -1,0 +1,86 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     chtMultiRegionSimpleFoam;
+
+startFrom       latestTime;
+
+//startTime       latestTime;
+
+stopAt          endTime;
+
+endTime         8000;
+
+deltaT          1;
+
+writeControl    timeStep;
+
+writeInterval   1000;
+
+purgeWrite      1;
+
+writeFormat     ascii;
+
+writePrecision  7;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+functions
+{
+    #include    "probes"
+    turbulenceFields
+    {
+        // Mandatory entries (unmodifiable)
+        type            turbulenceFields;
+        libs            (fieldFunctionObjects);
+
+        // Mandatory entries (runtime modifiable)
+        // Either field or fields entries
+        fields          (R devRhoReff epsilon);
+
+        // Optional (inherited) entries
+        region          fluid_0;
+        enabled         true;
+        log             true;
+        timeStart       0;
+        timeEnd         $endTime;
+        executeControl  timeStep;
+        executeInterval 1000;
+        writeControl    timeStep;
+        writeInterval   1000;
+    }		
+    
+    ContErr
+    {
+        type                continuityError;
+        libs                (fieldFunctionObjects);
+        executeControl      timeStep;
+        executeInterval     1000;
+        writeControl        writeTime;
+        region              fluid_0;
+    }
+}
+
+// ************************************************************************* //
+
+

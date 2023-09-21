@@ -1,0 +1,70 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         steadyState;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+}
+
+divSchemes
+{
+    default             Gauss linear;                                   //  Increasing order / accuracy                                                                
+    div(phi,U)          Gauss linearUpwind grad(U);             //  Gauss upwind     /  Gauss linearUpwind grad(U)           /  Gauss linear
+    div(phi,K)          Gauss linearUpwind grad(omega);         //  Gauss upwind     /  Gauss linearUpwind grad(omega)       /  Gauss limitedLinear 1
+    div(phi,h)          Gauss upwind;                           //  Gauss upwind     /  NOT SURE                             / ...
+    div(phi,k)          Gauss linearUpwind grad(omega);         //  Gauss upwind     /  Gauss linearUpwind grad(omega)       /  Gauss limitedLinear 1
+    div(phi,omega)      Gauss linearUpwind grad(omega);         //  Gauss upwind     /  Gauss linearUpwind grad(omega)       /  Gauss limitedLinear 1
+    div(phi,epsilon)    Gauss upwind;                           //  Gauss upwind     /  Gauss linearUpwind grad(epsilon??)   /  NOT SURE
+    div(phi,R)          Gauss upwind;                           //  NOT SURE         /  ...                                  /  ...
+    div(R)              Gauss linear;                           //  NOT SURE         /  ...                                  /  ...
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;           //  Gauss linear     /  NOT SURE    / ...                    /  ...
+    div(phi,Yi_h)       Gauss upwind;                           //  Gauss upwind     /	NOT SURE    / ...                    /  ...
+}
+
+laplacianSchemes
+{
+    default         Gauss linear limited corrected 0.333;
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         limited corrected 0.333;
+}
+
+fluxRequired
+{
+    default         no;
+    p_rgh;
+}
+
+wallDist
+{
+    method          meshWave;
+    nRequired       false;
+}
+
+
+// ************************************************************************* //

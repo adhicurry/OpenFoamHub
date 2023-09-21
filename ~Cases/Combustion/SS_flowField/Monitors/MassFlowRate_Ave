@@ -1,0 +1,9 @@
+set border lw 4
+set title "Mass Flow Rate [kg/s]" font "arial,22"
+set ylabel "Mass Flow Rate [kg/s]" font "arial,18"
+set xlabel "Iteration" font "arial,18"
+set key width 1
+plot "< cat /home/daksh-act/Desktop/OpenFOAM2206/SwissRoll_OF2206/SRC_4in_5a5mm/Propane1Step/Step1_SS_FlowField/log.chtMultiRegionSimpleFoam | grep 'sum(inlet) of phi' | awk '{print $NF}'" title 'inlet' with lines lw 2,\
+     "< cat /home/daksh-act/Desktop/OpenFOAM2206/SwissRoll_OF2206/SRC_4in_5a5mm/Propane1Step/Step1_SS_FlowField/log.chtMultiRegionSimpleFoam | grep 'sum(outlet) of phi' | awk '{print $NF}'" title 'outlet' with lines lw 2
+pause 1
+reread
