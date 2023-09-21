@@ -1,1 +1,24 @@
+Obtain SS flow field
 
+Openfoam2206
+
+This Case (Chen/Try2/ColdFlow/SS_Setup)
+chtMultiRegionSimpleFoam - Use to get initial cold flow field for later simulations.  
+k-omegaSST model, SS Flow, 2nd Order Discretization 
+
+3 Step Solution Strategy
+
+THIS CASE IS STEP 1 (and 2 if you switch turbulence model to LRR)
+
+Step 1: Setup SS coldflow case (air only @ 300K)
+	potentialFoam, k-omegaSST model, 2nd Order Discretization
+	Obtain converged fields (U, p, p_rgh, phi) + Reynolds Stress (R)
+
+Step 2: Setup SS Reynolds Stress Model case - (Switch to LRR)
+	Use converged fields from above, add Reynolds Stress Model. 
+	Start with 1st order schemes, switch to 2nd order. 
+	Get converged flow field with RSM model
+    
+Step 3: Start transient combustion with converged solution from above 
+	Switch to transient solver	
+	Introduce Species at inlet
