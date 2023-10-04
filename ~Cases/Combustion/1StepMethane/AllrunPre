@@ -1,0 +1,27 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+#Convert MultiRegion Fluent Mesh
+runApplication fluentMeshToFoam -writeZones V2_5in_50kMesh.msh
+runApplication splitMeshRegions -cellZones -overwrite
+runApplication checkMesh -allGeometry
+
+# Create ignition source cells
+runApplication topoSet -region fluid_0
+
+# Create Parafoam files
+touch Results.foam
+#paraFoam -region fluid_0 -touch
+#paraFoam -region solid_1 -touch
+#paraFoam -region solid_2 -touch
+
+#runApplication potentialFoam
+
+restore0Dir
+mkdir logs.old
+mv -f log.* logs.old
+
+
+#------------------------------------------------------------------------------

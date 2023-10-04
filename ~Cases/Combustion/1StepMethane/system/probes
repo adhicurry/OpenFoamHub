@@ -1,0 +1,255 @@
+// -*- C++ -*-
+
+probesFluid
+{
+    type            probes;
+    libs            (sampling);
+    writeControl    timeStep;
+    writeInterval   10;
+    interpolationScheme cell;
+    region          fluid_0;
+    log             true;
+    verbose         true;
+
+    fields          (p p_rgh U T CH4);
+
+    probeLocations
+    (
+        (0 0 0)
+	(0 0.001 0.001)
+    );
+}
+
+MassFlowRate_fuel
+{
+    type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+    enabled         yes;
+    writeControl    timeStep;
+    writeInterval   250;
+    log             yes;
+    writeFields     no;
+    regionType      patch;
+    name            inlet_fuel;
+    operation       sum;
+    fields          (phi);
+    region          fluid_0;
+}
+
+MassFlowRate_air
+{
+    type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+    enabled         yes;
+    writeControl    timeStep;
+    writeInterval   250;
+    log             yes;
+    writeFields     no;
+    regionType      patch;
+    name            inlet_air;
+    operation       sum;
+    fields          (phi);
+    region          fluid_0;
+}
+
+MassFlowRate_out
+{
+    type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+    enabled         yes;
+    writeControl    timeStep;
+    writeInterval   250;
+    log             yes;
+    writeFields     no;
+    regionType      patch;
+    name            outlet;
+    operation       sum;
+    fields          (phi);
+    region          fluid_0;
+}
+
+
+inletAve_Values
+{
+    // Mandatory entries
+	type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+	enabled			yes;
+	writeControl    timeStep;
+  	writeInterval   250;
+	log				yes;
+	writeFields		no;
+	operation		average;
+	regionType		patch;
+	fields			(U T CH4 CO2 H2O O2);
+	name			inlet_air;
+	region			fluid_0;
+
+}
+
+outletAve_values
+{
+    // Mandatory entries
+	type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+	enabled			yes;
+	writeControl    	timeStep;
+	writeInterval   	250;
+	log			yes;
+	writeFields		no;
+	operation		average;
+	regionType		patch;
+	fields			(U T CH4 CO2 H2O O2);
+	name			outlet;
+	region			fluid_0;
+
+}
+
+
+volAveTemp_AIR
+{
+	type            volFieldValue;
+	libs            ("libfieldFunctionObjects.so");
+	log             true;
+	writeControl    timeStep;//writeTime;//timeStep;//writeTime;
+	writeInterval	  250;
+	writeFields     false;
+	regionType      all;//cellZone;
+	region          fluid_0;
+	name            fluid_0;
+	operation       volAverage;
+	weightField     none;//alpha1;
+	fields
+	(
+		T
+	);
+}
+
+
+volAveTemp_SOLID_1
+{
+	type            volFieldValue;
+	libs            ("libfieldFunctionObjects.so");
+	log             true;
+	writeControl    timeStep;//writeTime;//timeStep;//writeTime;
+	writeInterval	  250;
+	writeFields     false;
+	regionType      all;//cellZone;
+	region          solid_1;
+	name            solid_1;
+	operation       volAverage;
+	weightField     none;//alpha1;
+	fields
+	(
+		T
+	);
+}
+
+volAveTemp_SOLID2
+{
+	type            volFieldValue;
+	libs            ("libfieldFunctionObjects.so");
+	log             true;
+	writeControl    timeStep;//writeTime;//timeStep;//writeTime;
+	writeInterval	  250;
+	writeFields     false;
+	regionType      all;//cellZone;
+	region          solid_2;
+	name            solid_2;
+	operation       volAverage;
+	weightField     none;//alpha1;
+	fields
+	(
+		T
+	);
+}
+
+
+MaxValues_fluid_0
+{
+	type            volFieldValue;
+	libs            ("libfieldFunctionObjects.so");
+	log             true;
+	writeControl    timeStep;//writeTime;//timeStep;//writeTime;
+	writeInterval	  250;
+	writeFields     false;
+	regionType      all;//cellZone;
+	region          fluid_0;
+	name            fluid_0;
+	operation       max;
+	weightField     none;//alpha1;
+	fields
+	(
+		T CH4 CO2 O2 H2O Qdot
+	);
+}
+
+
+MaxValue_Solid_1
+{
+	type            volFieldValue;
+	libs            ("libfieldFunctionObjects.so");
+	log             true;
+	writeControl    timeStep;//writeTime;//timeStep;//writeTime;
+	writeInterval	  250;
+	writeFields     false;
+	regionType      all;//cellZone;
+	region          solid_1;
+	name            solid_1;
+	operation       max;
+	weightField     none;//alpha1;
+	fields
+	(
+		T 
+	);
+}
+
+MaxValue_Solid_2
+{
+	type            volFieldValue;
+	libs            ("libfieldFunctionObjects.so");
+	log             true;
+	writeControl    timeStep;//writeTime;//timeStep;//writeTime;
+	writeInterval	  250;
+	writeFields     false;
+	regionType      all;//cellZone;
+	region          solid_2;
+	name            solid_2;
+	operation       max;
+	weightField     none;//alpha1;
+	fields
+	(
+		T 
+	);
+}
+
+Total_Qdot
+{
+	type            volFieldValue;
+	libs            ("libfieldFunctionObjects.so");
+	log             true;
+	writeControl    timeStep;//writeTime;//timeStep;//writeTime;
+	writeInterval	  250;
+	writeFields     false;
+	regionType      all;//cellZone;
+	region          fluid_0;
+	name            fluid_0;
+	operation       volIntegrate;
+	weightField     none;//alpha1;
+	fields
+	(
+		Qdot
+	);
+}
+
+//solverInfo1
+//{
+//#includeEtc "caseDicts/postProcessing/numerical/solverInfo.cfg"
+//writeControl writeTime;
+//fields      (p_rgh h CH4 O2 H2O CO2);
+//region          fluid_0;
+//writeFields yes;
+//log         true;
+//}
+
+// ************************************************************************* //

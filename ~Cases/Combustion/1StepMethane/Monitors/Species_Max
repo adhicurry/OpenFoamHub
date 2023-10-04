@@ -1,0 +1,9 @@
+set border lw 4
+set title "Species Max Mass Fraction" font "arial,22"
+set ylabel "Mass Fraction" font "arial,18"
+set xlabel "Iteration" font "arial,18"
+set key width 1
+plot "< cat /home/daksh-adhikari/Desktop/ARPAE/PassiveSRC/V2/log.chtMultiRegionFoam | grep 'max(fluid_0) of CO2' | awk '{print $NF}'" title 'CO2' with lines lw 4,\
+     "< cat /home/daksh-adhikari/Desktop/ARPAE/PassiveSRC/V2/log.chtMultiRegionFoam | grep 'max(fluid_0) of H2O' | awk '{print $NF}'" title 'H2O' with lines lw 4
+pause 1
+reread
