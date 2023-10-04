@@ -1,1 +1,6 @@
+1 step methane reaction
+Separate fuel and air inlets
+
+chtMultiRegionFoam
+Transient, kOmegaSST, FvDOM, PaSR
 
