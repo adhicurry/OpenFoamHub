@@ -1,0 +1,40 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant/fluid_0";
+    object      thermophysicalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+species
+(
+    O2
+    H2O
+    CO2
+    N2
+    C3H8
+);
+
+reactions
+{
+    PropaneReaction
+    {
+        type     irreversibleArrheniusReaction;
+        reaction "C3H8^0.1 + 5O2^1.65 = 3CO2 + 4H2O";
+        A        10e+10;    // 9e+9
+        beta     0; 
+        Ta       2.015e+04; // 2.015e+04
+    }
+}
+
+
+// ************************************************************************* //
