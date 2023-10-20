@@ -1,10 +1,17 @@
 set border lw 4
-set title "Maximum Temperature [K]" font "arial,22"
-set ylabel "Temperature" font "arial,18"
-set xlabel "Iteration" font "arial,18"
-set key width 1
-plot "< cat /home/daksh-adhikari/Desktop/ARPAE/Chen/GRI_Chen/log.chtMultiRegionFoam | grep 'max(fluid_0) of T' | awk '{print $NF}'" title 'fluid_0' with lines lw 4,\
-     "< cat /home/daksh-adhikari/Desktop/ARPAE/Chen/GRI_Chen/log.chtMultiRegionFoam | grep 'max(solid_1) of T' | awk '{print $NF}'" title 'solid_1' with lines lw 4,\
-     "< cat /home/daksh-adhikari/Desktop/ARPAE/Chen/GRI_Chen/log.chtMultiRegionFoam | grep 'max(solid_2) of T' | awk '{print $NF}'" title 'solid_2' with lines lw 4
+set ylabel "Temperature [C]" font "arial,18"
+set yrange [100:]
+set ytics 50
+set xlabel "Time [s]" font "arial,18"
+set key width 8
+set key above font "arial,12"
+set grid
+plot '/home/daksh-adhikari/Desktop/ARPAE/ACT_9in_Exp/Exp2_SIM3/postProcessing/probesFluid/fluid_0/13.3/T' using 1:($2-273) with lines lw 2 title 'TC0- SR Inlet',\
+     '/home/daksh-adhikari/Desktop/ARPAE/ACT_9in_Exp/Exp2_SIM3/postProcessing/probesFluid/fluid_0/13.3/T' using 1:($3-273) with lines lw 2 title 'TC1- Core Inlet',\
+     '/home/daksh-adhikari/Desktop/ARPAE/ACT_9in_Exp/Exp2_SIM3/postProcessing/probesFluid/fluid_0/13.3/T' using 1:($4-273) with lines lw 2 title 'TC2, Core 1',\
+     '/home/daksh-adhikari/Desktop/ARPAE/ACT_9in_Exp/Exp2_SIM3/postProcessing/probesFluid/fluid_0/13.3/T' using 1:($5-273) with lines lw 2 title 'TC3, Core 2',\
+     '/home/daksh-adhikari/Desktop/ARPAE/ACT_9in_Exp/Exp2_SIM3/postProcessing/probesFluid/fluid_0/13.3/T' using 1:($6-273) with lines lw 2 title 'TC4, Core 3',\
+     '/home/daksh-adhikari/Desktop/ARPAE/ACT_9in_Exp/Exp2_SIM3/postProcessing/probesFluid/fluid_0/13.3/T' using 1:($7-273) with lines lw 2 title 'TC5, Core Exit',\
+     '/home/daksh-adhikari/Desktop/ARPAE/ACT_9in_Exp/Exp2_SIM3/postProcessing/probesFluid/fluid_0/13.3/T' using 1:($8-273) with lines lw 2 title 'TC6, SR Exit',
 pause 1
 reread
