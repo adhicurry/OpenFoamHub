@@ -1,0 +1,43 @@
+# Transient BC for reducin fraction 
+
+MethaneInlet
+{
+	type            uniformFixedValue;
+	uniformValue           table
+	(
+		(0  0.0189)		//Phi 0.3
+		(5  0.0189)		//Phi 0.3
+		(10 0.0158)		//Transition to Phi 0.25
+		(15 0.0158)		//Phi 0.25
+		(20 0.0127)		//Transition to Phi 0.2
+		(25 0.0127)		//Phi 0.2
+	);
+}
+
+O2inlet
+{
+	type            uniformFixedValue;
+	uniformValue           table
+	(
+		(0	0.2314)		//Phi 0.3
+		(5  0.2314)		//Phi 0.3
+		(10 0.2292)		//Transition to Phi 0.25
+		(15 0.2292)		//Phi 0.25
+		(20 0.2300)		//Transition to Phi 0.2
+		(25 0.2300)		//Phi 0.2
+	);
+}
+
+N2Inlet
+{
+	type            uniformFixedValue;
+	uniformValue           table
+	(
+		(0  0.7526)		//Phi 0.3
+		(5  0.7526)		//Phi 0.3
+		(10 0.7550)		//Transition to Phi 0.25
+		(15 0.7550)		//Phi 0.25
+		(20 0.7574)		//Transition to Phi 0.2
+		(25 0.7574)		//Phi 0.2
+	);
+}
