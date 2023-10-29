@@ -1,0 +1,86 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2206                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      T;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 1 0 0 0];
+
+internalField   uniform 1500;
+
+boundaryField
+{
+    #includeEtc "caseDicts/setConstraintTypes"
+    inlet_air
+    {
+        type            inletOutlet;
+	inletValue      uniform 300;
+        value           uniform 300;
+    }
+
+    inlet_fuel
+    {
+        type            fixedValue;
+        value           uniform 300;
+    }
+
+    outlet
+    {
+        type            zeroGradient;
+    }
+
+    fluid_0_to_solid_1
+    {
+        type            compressible::turbulentTemperatureRadCoupledMixed;
+        Tnbr            T;
+        kappaMethod     fluidThermo;
+        //qrNbr           none;
+        //qr              qr;
+        kappa           none;
+        value           $internalField;
+    }
+	
+    fluid_0_to_solid_2
+    {
+        type            compressible::turbulentTemperatureRadCoupledMixed;
+        Tnbr            T;
+        kappaMethod     fluidThermo;
+        //qrNbr           none;
+        //qr              qr;
+        kappa           none;
+        value           $internalField;
+    }
+
+    walls_fuelinlet
+    {
+        type            zeroGradient;
+    }
+
+    "proc.*"
+    {
+        type            processor;
+    }
+    
+    "symmetry.*" 
+    {
+        type            symmetry;
+    }
+    frontAndBackPlanes
+    {
+        type            empty;
+    }
+	
+}
+
+
+// ************************************************************************* //
