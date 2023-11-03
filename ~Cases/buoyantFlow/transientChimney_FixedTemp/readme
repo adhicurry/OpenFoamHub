@@ -1,0 +1,5 @@
+Flow arises due to buoyancy effects.
+
+Both inlet and outlet are Pressure BCs (Ambient)
+
+Fixed temperature in the middle of the geometry (hot) causes the air to rise through the chimney, creating a flow
