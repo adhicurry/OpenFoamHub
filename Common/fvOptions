@@ -17,6 +17,20 @@ FoamFile
 
 options
 {
+    
+    fixedTemperature
+    {
+        type            fixedTemperatureConstraint;
+        active          yes;
+        selectionMode   cellSet;
+        cellSet         ignition;
+        mode            uniform;      // uniform or lookup
+        temperature     constant 1000; // uniform option
+        
+        // For lookup option
+        // T            <Tname>;      // optional temperature field name
+    }
+
     energySource
     {
         type            scalarSemiImplicitSource;
