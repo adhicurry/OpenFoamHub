@@ -4,4 +4,5 @@ Both inlet and outlet are Pressure BCs (Ambient)
 
 Fixed temperature in the middle of the geometry (hot) causes the air to rise through the chimney, creating a flow
 
-Can add radiation and combustion model 
+Can add radiation and combustion model (Done in next cases)
+
