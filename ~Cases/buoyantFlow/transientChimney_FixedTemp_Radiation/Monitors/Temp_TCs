@@ -1,0 +1,18 @@
+set border lw 4
+set ylabel "Temperature [C]" font "arial,18"
+set yrange [100:]
+set ytics 50
+set xlabel "Time [s]" font "arial,18"
+set key width 8
+set key above font "arial,12"
+set grid
+plot '//home/adhi-linux/Openfoam2206/PassiveSRC/HOTcore_5in_SETUP/postProcessing/probesFluid/fluid_0/0/T' using 1:($2-273) with lines lw 2 title 'TC0- SR Inlet',\
+     '//home/adhi-linux/Openfoam2206/PassiveSRC/HOTcore_5in_SETUP/postProcessing/probesFluid/fluid_0/0/T' using 1:($3-273) with lines lw 2 title 'TC1- Core Inlet',\
+     '//home/adhi-linux/Openfoam2206/PassiveSRC/HOTcore_5in_SETUP/postProcessing/probesFluid/fluid_0/0/T' using 1:($4-273) with lines lw 2 title 'TC2, Core 1',\
+     '//home/adhi-linux/Openfoam2206/PassiveSRC/HOTcore_5in_SETUP/postProcessing/probesFluid/fluid_0/0/T' using 1:($5-273) with lines lw 2 title 'TC3, Core 2',\
+     #'//home/adhi-linux/Openfoam2206/PassiveSRC/HOTcore_5in_SETUP/postProcessing/probesFluid/fluid_0/0/T' using 1:($6-273) with lines lw 2 title 'TC4, Core 3',\
+     #'//home/adhi-linux/Openfoam2206/PassiveSRC/HOTcore_5in_SETUP/postProcessing/probesFluid/fluid_0/0/T' using 1:($7-273) with lines lw 2 title 'TC5, Core Exit',\
+     #'//home/adhi-linux/Openfoam2206/PassiveSRC/HOTcore_5in_SETUP/postProcessing/probesFluid/fluid_0/0/T' using 1:($8-273) with lines lw 2 title 'TC6, SR Exit',
+pause 1
+reread
+
