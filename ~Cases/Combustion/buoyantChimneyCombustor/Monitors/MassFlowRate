@@ -1,0 +1,10 @@
+set border lw 4
+set title "Mass Flow Rate [kg/s]" font "arial,22"
+set ylabel "Mass Flow Rate [kg/s]" font "arial,18"
+set xlabel "Iteration" font "arial,18"
+set key width 1
+plot "< cat /home/daksh-adhikari/Desktop/ARPAE/PassiveSRC/PassiveV6_HOTCORE_dP/Sim1/log.chtMultiRegionFoam  | grep 'sum(inlet_air) of phi' | awk '{print $NF}'" title 'inlet air' with lines lw 2,\
+     "< cat /home/daksh-adhikari/Desktop/ARPAE/PassiveSRC/PassiveV6_HOTCORE_dP/Sim1/log.chtMultiRegionFoam  | grep 'sum(inlet_fuel) of phi' | awk '{print $NF}'" title 'inlet fuel' with lines lw 2,\
+     "< cat /home/daksh-adhikari/Desktop/ARPAE/PassiveSRC/PassiveV6_HOTCORE_dP/Sim1/log.chtMultiRegionFoam  | grep 'sum(outlet) of phi' | awk '{print $NF}'" title 'outlet' with lines lw 2
+pause 1
+reread

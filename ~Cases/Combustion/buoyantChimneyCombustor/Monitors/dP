@@ -1,0 +1,11 @@
+set border lw 4
+set title "Pressure" font "arial,22"
+set ylabel "Pressure" font "arial,18"
+set xlabel "Iteration" font "arial,18"
+set key width 1
+plot "< cat /home/daksh-adhikari/Desktop/ARPAE/PassiveSRC/PassiveV6_HOTCORE_dP/Sim1/log.chtMultiRegionFoam | grep 'average(inlet_air) of p' | awk '{print $NF}'" title 'inlet_p' with lines lw 4,\
+     "< cat /home/daksh-adhikari/Desktop/ARPAE/PassiveSRC/PassiveV6_HOTCORE_dP/Sim1/log.chtMultiRegionFoam | grep 'average(outlet) of p' | awk '{print $NF}'" title 'outlet_p' with lines lw 4,\
+     #"< cat /home/daksh-adhikari/Desktop/ARPAE/PassiveSRC/PassiveV6_HOTCORE_dP/Sim1/log.chtMultiRegionFoam | grep 'average(inlet_air) of p' | awk '{print $NF}'" title 'inlet_p' with lines lw 4,\
+     #"< cat /home/daksh-adhikari/Desktop/ARPAE/PassiveSRC/PassiveV6_HOTCORE_dP/Sim1/log.chtMultiRegionFoam | grep 'average(outlet) of p' | awk '{print $NF}'" title 'outlet_p' with lines lw 4
+pause 1
+reread

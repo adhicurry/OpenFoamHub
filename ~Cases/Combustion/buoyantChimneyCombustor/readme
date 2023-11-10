@@ -1,0 +1,8 @@
+Transient Combustion model with flow driven by buoyant effects in chimney. 
+
+Both inlet and outlet are Pressure BCs (Ambient)- Flow arises due to buoyancy effects.
+Radiation model is added. 
+Temp dependant out-of-plane heat loss is included. 
+Combustion in bottom creates a temperature gradeient, creating a flow.
+
+
