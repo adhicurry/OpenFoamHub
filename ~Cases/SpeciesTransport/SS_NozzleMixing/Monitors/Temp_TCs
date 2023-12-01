@@ -1,0 +1,10 @@
+set border lw 4
+set title "Maximum Temperature [K]" font "arial,22"
+set ylabel "Temperature" font "arial,18"
+set xlabel "Iteration" font "arial,18"
+set key width 1
+plot "< cat /home/daksh-adhikari/Desktop/ARPAE/Injector/Inj1/Sim1/log.chtMultiRegionFoam | grep 'max(fluid_0) of T' | awk '{print $NF}'" title 'fluid_0' with lines lw 4,\
+     "< cat /home/daksh-adhikari/Desktop/ARPAE/Injector/Inj1/Sim1/log.chtMultiRegionFoam | grep 'max(solid_1) of T' | awk '{print $NF}'" title 'solid_1' with lines lw 4,\
+     "< cat /home/daksh-adhikari/Desktop/ARPAE/Injector/Inj1/Sim1/log.chtMultiRegionFoam | grep 'max(solid_2) of T' | awk '{print $NF}'" title 'solid_2' with lines lw 4
+pause 1
+reread
