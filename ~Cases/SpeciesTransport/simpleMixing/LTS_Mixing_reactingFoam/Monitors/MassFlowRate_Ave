@@ -1,0 +1,10 @@
+set border lw 4
+set title "Mass Flow Rate [kg/s]" font "arial,22"
+set ylabel "Mass Flow Rate [kg/s]" font "arial,18"
+set xlabel "Iteration" font "arial,18"
+set key width 1
+plot "< cat /home/adhi-linux/Openfoam2206/SpeciesTRANSPORT/SimpleMixing_Setup/LTS_Mixing_reactingFoam/log.reactingFoam | grep 'sum(inlet_air) of phi' | awk '{print $NF}'" title 'inlet air' with lines lw 2,\
+     "< cat /home/adhi-linux/Openfoam2206/SpeciesTRANSPORT/SimpleMixing_Setup/LTS_Mixing_reactingFoam/log.reactingFoam | grep 'sum(inlet_top) of phi' | awk '{print $NF}'" title 'top fuel' with lines lw 2\
+     "< cat /home/adhi-linux/Openfoam2206/SpeciesTRANSPORT/SimpleMixing_Setup/LTS_Mixing_reactingFoam/log.reactingFoam | grep 'sum(outlet) of phi' | awk '{print $NF}'" title 'outlet' with lines lw 2
+pause 1
+reread

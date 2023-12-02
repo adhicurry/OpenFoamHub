@@ -1,0 +1,178 @@
+// -*- C++ -*-
+
+probesFluid
+{
+    type            probes;
+    libs            (sampling);
+    writeControl    timeStep;
+    writeInterval   10;
+    interpolationScheme cell;
+    region          region0;
+    log             true;
+    verbose         true;
+
+    fields          (p p_rgh U T CH4);
+
+    probeLocations
+    (
+        (0 0 0)
+	(0 0.001 0.001)
+    );
+}
+
+MassFlowRate_air
+{
+    type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+    enabled         yes;
+    writeControl    timeStep;
+    writeInterval   10;
+    log             yes;
+    writeFields     no;
+    regionType      patch;
+    name            inlet_air;
+    operation       sum;
+    fields          (phi);
+    region          region0;
+}
+
+MassFlowRate_fueltop
+{
+    type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+    enabled         yes;
+    writeControl    timeStep;
+    writeInterval   10;
+    log             yes;
+    writeFields     no;
+    regionType      patch;
+    name            inlet_top;
+    operation       sum;
+    fields          (phi);
+    region          region0;
+}
+
+
+MassFlowRate_out
+{
+    type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+    enabled         yes;
+    writeControl    timeStep;
+    writeInterval   10;
+    log             yes;
+    writeFields     no;
+    regionType      patch;
+    name            outlet;
+    operation       sum;
+    fields          (phi);
+    region          region0;
+}
+
+
+inletAve_air
+{
+    // Mandatory entries
+	type            surfaceFieldValue;
+    	libs            (fieldFunctionObjects);
+	enabled			yes;
+	writeControl    timeStep;
+  	writeInterval   10;
+	log				yes;
+	writeFields		no;
+	operation		average;
+	regionType		patch;
+	fields			(U T p_rgh p);
+	name			inlet_air;
+	region			region0;
+
+}
+
+inletAve_fuel
+{
+    // Mandatory entries
+	type            surfaceFieldValue;
+    	libs            (fieldFunctionObjects);
+	enabled			yes;
+	writeControl    timeStep;
+  	writeInterval   10;
+	log				yes;
+	writeFields		no;
+	operation		average;
+	regionType		patch;
+	fields			(U T p_rgh p);
+	name			inlet_top;
+	region			region0;
+
+}
+
+outletAve_values
+{
+    // Mandatory entries
+	type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+	enabled			yes;
+	writeControl    	timeStep;
+	writeInterval   	10;
+	log			yes;
+	writeFields		no;
+	operation		average;
+	regionType		patch;
+	fields			(U T CH4 CO2 H2O O2 N2);
+	name			outlet;
+	region			region0;
+
+}
+
+
+volAveTemp_AIR
+{
+	type            volFieldValue;
+	libs            ("libfieldFunctionObjects.so");
+	log             true;
+	writeControl    timeStep;//writeTime;//timeStep;//writeTime;
+	writeInterval	  10;
+	writeFields     false;
+	regionType      all;//cellZone;
+	region          region0;
+	name            region0;
+	operation       volAverage;
+	weightField     none;//alpha1;
+	fields
+	(
+		T
+	);
+}
+
+
+
+MaxValues_region0
+{
+	type            volFieldValue;
+	libs            ("libfieldFunctionObjects.so");
+	log             true;
+	writeControl    timeStep;//writeTime;//timeStep;//writeTime;
+	writeInterval	  10;
+	writeFields     false;
+	regionType      all;//cellZone;
+	region          region0;
+	name            region0;
+	operation       max;
+	weightField     none;//alpha1;
+	fields
+	(
+		T CH4 CO2 O2 H2O Qdot
+	);
+}
+
+//solverInfo1
+//{
+//#includeEtc "caseDicts/postProcessing/numerical/solverInfo.cfg"
+//writeControl writeTime;
+//fields      (p_rgh h CH4 O2 H2O CO2);
+//region          region0;
+//writeFields yes;
+//log         true;
+//}
+
+// ************************************************************************* //
