@@ -1,0 +1,8 @@
+set border lw 4
+set title "Heat Release Rate" font "arial,22"
+set ylabel "Qdot [W]" font "arial,18"
+set xlabel "Iteration" font "arial,18"
+set key width 1
+plot "< cat /home/adhi-linux/Openfoam2206/SpeciesTRANSPORT/SimpleMixing_Setup/Transient_Mixing/log.chtMultiRegionFoam | grep 'volIntegrate(fluid_0) of Qdot' | awk '{print $NF}'" title 'Qdot' with lines lw 4
+pause 1
+reread

@@ -1,0 +1,13 @@
+set border lw 4
+set title "In/Out Mass Fraction" font "arial,22"
+set ylabel "Yi" font "arial,18"
+set xlabel "Iteration" font "arial,18"
+set key width 1
+plot "< cat /home/adhi-linux/Openfoam2206/SpeciesTRANSPORT/SimpleMixing_Setup/Transient_Mixing/log.chtMultiRegionFoam | grep 'average(inlet) of CH4' | awk '{print $NF}'" title 'CH4-inlet' with lines lw 4,\
+     "< cat /home/adhi-linux/Openfoam2206/SpeciesTRANSPORT/SimpleMixing_Setup/Transient_Mixing/log.chtMultiRegionFoam | grep 'average(outlet) of CH4' | awk '{print $NF}'" title 'CH4-outlet' with lines lw 4,\
+     #"< cat /home/adhi-linux/Openfoam2206/SpeciesTRANSPORT/SimpleMixing_Setup/Transient_Mixing/log.chtMultiRegionFoam | grep 'average(inlet) of O2' | awk '{print $NF}'" title 'O2-inlet' with lines lw 4,\
+     #"< cat /home/adhi-linux/Openfoam2206/SpeciesTRANSPORT/SimpleMixing_Setup/Transient_Mixing/log.chtMultiRegionFoam | grep 'average(outlet) of O2' | awk '{print $NF}'" title 'O2-outlet' with lines lw 4,\
+     "< cat /home/adhi-linux/Openfoam2206/SpeciesTRANSPORT/SimpleMixing_Setup/Transient_Mixing/log.chtMultiRegionFoam | grep 'average(outlet) of H2O' | awk '{print $NF}'" title 'H2O-outlet' with lines lw 4,\
+     "< cat /home/adhi-linux/Openfoam2206/SpeciesTRANSPORT/SimpleMixing_Setup/Transient_Mixing/log.chtMultiRegionFoam | grep 'average(outlet) of CO2' | awk '{print $NF}'" title 'CO2-outlet' with lines lw 4
+pause 1
+reread
