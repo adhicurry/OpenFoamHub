@@ -1,0 +1,136 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2206                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    arch        "LSB;label=32;scalar=64";
+    class       dictionary;
+    location    "1500/uniform/functionObjects";
+    object      functionObjectProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+cdf7e925f5746741c316f5fbcf39ad0dfca90775
+{
+    probesFluid
+    {
+        scalar
+        {
+            average(CH4)    0;
+            min(CH4)        0;
+            max(CH4)        0;
+            average(T)      300.0000125938512;
+            min(T)          299.9999950412445;
+            max(T)          300.0000301464579;
+            average(p)      100000.2127704436;
+            min(p)          100000.1622619196;
+            max(p)          100000.2632789676;
+            average(p_rgh)  100000.2193173544;
+            min(p_rgh)      100000.1740977482;
+            max(p_rgh)      100000.2645369606;
+        }
+        label
+        {
+            size(CH4)       2;
+            size(T)         2;
+            size(p)         2;
+            size(p_rgh)     2;
+            size(U)         2;
+        }
+        vector
+        {
+            average(U)      ( 0.3876358 0.03035427 0.003908571 );
+            min(U)          ( 0.3212102 0.02367034 0.001405016 );
+            max(U)          ( 0.4540614 0.03703821 0.006412126 );
+        }
+    }
+    MassFlowRate_air
+    {
+        scalar
+        {
+            sum(inlet_air,phi) -0.000103791761459418;
+        }
+    }
+    MassFlowRate_fueltop
+    {
+        scalar
+        {
+            sum(inlet_top,phi) -4.587316259231062e-06;
+        }
+    }
+    MassFlowRate_out
+    {
+        scalar
+        {
+            sum(outlet,phi) 0.0001083790778266489;
+        }
+    }
+    inletAve_air
+    {
+        vector
+        {
+            average(inlet_air,U) ( 0.45 0 0 );
+        }
+        scalar
+        {
+            average(inlet_air,T) 300;
+            average(inlet_air,p_rgh) 100000.181879222;
+            average(inlet_air,p) 100000.0685545956;
+        }
+    }
+    inletAve_fuel
+    {
+        vector
+        {
+            average(inlet_top,U) ( 0 -4.566 0 );
+        }
+        scalar
+        {
+            average(inlet_top,T) 300;
+            average(inlet_top,p_rgh) 99997.19810366808;
+            average(inlet_top,p) 99997.05488070604;
+        }
+    }
+    outletAve_values
+    {
+        vector
+        {
+            average(outlet,U) ( 0.3516264 0.004520725 0.002756743 );
+        }
+        scalar
+        {
+            average(outlet,T) 300.0866931636194;
+            average(outlet,CH4) 0;
+            average(outlet,CO2) 0;
+            average(outlet,H2O) 0;
+            average(outlet,O2) 0.2100000000000007;
+        }
+    }
+    volAveTemp_AIR
+    {
+        scalar
+        {
+            volAverage(fluid_0,T) 300.0636200395243;
+        }
+    }
+    MaxValues_fluid_0
+    {
+        scalar
+        {
+            max(fluid_0,T)  302.2257542362943;
+            max(fluid_0,CH4) 0;
+            max(fluid_0,CO2) 0;
+            max(fluid_0,O2) 0.21;
+            max(fluid_0,H2O) 0;
+        }
+    }
+}
+
+
+// ************************************************************************* //

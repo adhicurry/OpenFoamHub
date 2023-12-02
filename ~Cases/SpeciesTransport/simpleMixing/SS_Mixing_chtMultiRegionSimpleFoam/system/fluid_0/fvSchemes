@@ -1,0 +1,66 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes  //#Euler is 1st order accurate, CrankNicolson is 2nd order accurate.
+{
+    default             steadyState;      //CrankNicolson 0-1     Use CrankNicolson with 0 for full Euler, 1 for full CrankNicolson. 
+}
+
+gradSchemes
+{
+    default             Gauss linear;
+}
+
+divSchemes
+{
+    default             none;                                   //  Increasing order / accuracy                                                                
+    div(phi,U)          Gauss linearUpwind grad(U);                   //  Gauss upwind     /  Gauss linearUpwind grad(U)           /  Gauss linear
+    div(phi,K)          Gauss linearUpwind grad(omega);               //  Gauss upwind     /  Gauss linearUpwind grad(omega)       /  Gauss limitedLinear 1
+    div(phi,h)          Gauss upwind;                           //  Gauss upwind     /  NOT SURE                             / ...
+    div(phi,k)          Gauss linearUpwind grad(omega);               //  Gauss upwind     /  Gauss linearUpwind grad(omega)       /  Gauss limitedLinear 1
+    div(phi,omega)      Gauss upwind grad(omega);               //  Gauss upwind     /  Gauss linearUpwind grad(omega)       /  Gauss limitedLinear 1
+    div(phi,epsilon)    Gauss upwind;                           //  Gauss upwind     /  Gauss linearUpwind grad(epsilon??)   /  NOT SURE
+    div(phi,R)          Gauss upwind;                           //  NOT SURE         /  ...                                  /  ...
+    div(R)              Gauss linear;                           //  NOT SURE         /  ...                                  /  ...
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;           //  Gauss linear     /  NOT SURE    / ...                    /  ...
+    div(((rho*(thermo:mu|rho))*dev2(T(grad(U))))) Gauss linear;
+    div((rho*R))        Gauss linear;
+    div(phi,Yi_h)       Gauss upwind;                           //  Gauss upwind     /	NOT SURE    / ...                    /  ...
+    div(Ji,Ii_h)        Gauss upwind;
+}
+
+laplacianSchemes                                                // Check Tips and Tricks Powerpoint for more details on these
+{                                                               // Fully Orthoganal Scheme  /   Blend between fully orthogonal and non orthogonal (NUMBER)
+    default             Gauss linear corrected;                 // Gauss linear corrected   /   Gauss linear limited NUMBER        
+}
+
+interpolationSchemes
+{
+    default             linear;
+}
+
+snGradSchemes
+{
+    default             corrected;
+}
+
+wallDist
+{
+    method              meshWave;
+}
+
+
+// ************************************************************************* //
