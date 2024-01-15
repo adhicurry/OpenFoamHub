@@ -1,0 +1,79 @@
+#!/bin/bash
+#
+#-------------------------------------------------#
+# Contributor: Tobias Holzmann                    #
+# Updated on:  10 September 2021                  #
+#-------------------------------------------------#
+# Topic:       2D Rotational Mesh Generation      #
+# OpenFOAM:    version 9 (Foundation)             #
+#-------------------------------------------------#
+# Website:     https://Holzmann-cfd.com           #
+# Email:       community@Holzmann-cfd.com         #
+#-------------------------------------------------#
+
+
+#------------------------------------------------------------------------------
+foamVersion="OpenFOAM-9"
+
+
+#------------------------------------------------------------------------------
+cd ${0%/*} || exit 1
+clear
+source clean
+source .color
+source .preamble
+
+
+#------------------------------------------------------------------------------
+echo -e "\n
+Start meshing
+-------------------------------------------------------------------------------
+"
+
+
+#------------------------------------------------------------------------------
+echo -e "   - Create background mesh"
+blockMesh >> logFile
+
+
+#------------------------------------------------------------------------------
+echo -e "   - Create surface feature edges"
+surfaceFeatures >> logFile
+
+
+#------------------------------------------------------------------------------
+echo -e "   - Meshing with snappyHexMesh (~2 Minutes)"
+snappyHexMesh -overwrite >> logFile
+
+
+#------------------------------------------------------------------------------
+echo -e "   - Corrections based on older version"
+sed 's/minZ/front/g' constant/polyMesh/boundary -i
+
+
+#------------------------------------------------------------------------------
+echo -e "   - Extrude one patch to make a 2D rotational mesh"
+extrudeMesh >> logFile
+
+
+#------------------------------------------------------------------------------
+echo -e "   - Remove not needed patch entries"
+createPatch -overwrite >> logFile
+
+
+#------------------------------------------------------------------------------
+echo -e "   - Remove not needed stuff"
+rm -r 0
+
+
+#------------------------------------------------------------------------------
+echo -e "\n
+-------------------------------------------------------------------------------
+End Meshing\n\n
+
+Note: There is no patch named 'axis' in the boundary file because the cells
+      at the axis persist on five faces (not six). Hence, the axis BC would
+      contain zero faces.\n\n"
+
+
+#------------------------------------------------------------------------------
